@@ -21,8 +21,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       class="btn btn-sm"
       [ngClass]="{
         disabled: isSubmitting,
-        'btn-outline-primary': !article.favorited,
-        'btn-primary': article.favorited
+        'btn-outline-primary': !article?.favorited,
+        'btn-primary': article?.favorited
       }"
       (click)="toggleFavorite()"
     >
@@ -36,7 +36,7 @@ export class FavoriteButtonComponent {
   destroyRef = inject(DestroyRef);
   isSubmitting = false;
 
-  @Input() article!: Article;
+  @Input() article!: Article | undefined;
   @Output() toggle = new EventEmitter<boolean>();
 
   constructor(
@@ -56,8 +56,8 @@ export class FavoriteButtonComponent {
             return EMPTY;
           }
 
-          if (!this.article.favorited) {
-            return this.articleService.favorite(this.article.slug);
+          if (!this.article?.favorited) {
+            return this.articleService.favorite(this.article?.slug!);
           } else {
             return this.articleService.unfavorite(this.article.slug);
           }
@@ -67,7 +67,7 @@ export class FavoriteButtonComponent {
       .subscribe({
         next: () => {
           this.isSubmitting = false;
-          this.toggle.emit(!this.article.favorited);
+          this.toggle.emit(!this.article?.favorited);
         },
         error: () => (this.isSubmitting = false),
       });

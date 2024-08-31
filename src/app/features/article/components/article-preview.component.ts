@@ -15,16 +15,16 @@ import { FavoriteButtonComponent } from "./favorite-button.component";
           (toggle)="toggleFavorite($event)"
           class="pull-xs-right"
         >
-          {{ article.favoritesCount }}
+          {{ article?.favoritesCount }}
         </app-favorite-button>
       </app-article-meta>
 
-      <a [routerLink]="['/article', article.slug]" class="preview-link">
-        <h1>{{ article.title }}</h1>
-        <p>{{ article.description }}</p>
+      <a [routerLink]="['/article', article?.slug]" class="preview-link">
+        <h1>{{ article?.title }}</h1>
+        <p>{{ article?.description }}</p>
         <span>Read more...</span>
         <ul class="tag-list">
-          @for (tag of article.tagList; track tag) {
+          @for (tag of article?.tagList; track tag) {
             <li class="tag-default tag-pill tag-outline">
               {{ tag }}
             </li>
@@ -37,15 +37,17 @@ import { FavoriteButtonComponent } from "./favorite-button.component";
   standalone: true,
 })
 export class ArticlePreviewComponent {
-  @Input() article!: Article;
+  @Input() article!: Article | undefined;
 
   toggleFavorite(favorited: boolean): void {
-    this.article.favorited = favorited;
+    if (this.article != undefined) {
+      this.article.favorited = favorited;
 
-    if (favorited) {
-      this.article.favoritesCount++;
-    } else {
-      this.article.favoritesCount--;
+      if (favorited) {
+        this.article.favoritesCount++;
+      } else {
+        this.article.favoritesCount--;
+      }
     }
   }
 }

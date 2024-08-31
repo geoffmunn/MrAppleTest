@@ -7,16 +7,19 @@ import { DatePipe } from "@angular/common";
   selector: "app-article-meta",
   template: `
     <div class="article-meta">
-      <a [routerLink]="['/profile', article.author.username]">
-        <img [src]="article.author.image" />
+      <a [routerLink]="['/profile', (article?.author)!.username]">
+        <img [src]="(article?.author)!.image" />
       </a>
 
       <div class="info">
-        <a class="author" [routerLink]="['/profile', article.author.username]">
-          {{ article.author.username }}
+        <a
+          class="author"
+          [routerLink]="['/profile', (article?.author)!.username]"
+        >
+          {{ (article?.author)!.username }}
         </a>
         <span class="date">
-          {{ article.createdAt | date: "longDate" }}
+          {{ article?.createdAt | date: "longDate" }}
         </span>
       </div>
 
@@ -28,5 +31,5 @@ import { DatePipe } from "@angular/common";
   standalone: true,
 })
 export class ArticleMetaComponent {
-  @Input() article!: Article;
+  @Input() article!: Article | undefined;
 }

@@ -22,21 +22,21 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       class="btn btn-sm action-btn"
       [ngClass]="{
         disabled: isSubmitting,
-        'btn-outline-secondary': !profile.following,
-        'btn-secondary': profile.following
+        'btn-outline-secondary': !profile?.following,
+        'btn-secondary': profile?.following
       }"
       (click)="toggleFollowing()"
     >
       <i class="ion-plus-round"></i>
       &nbsp;
-      {{ profile.following ? "Unfollow" : "Follow" }} {{ profile.username }}
+      {{ profile?.following ? "Unfollow" : "Follow" }} {{ profile?.username }}
     </button>
   `,
   imports: [NgClass],
   standalone: true,
 })
 export class FollowButtonComponent {
-  @Input() profile!: Profile;
+  @Input() profile!: Profile | undefined;
   @Output() toggle = new EventEmitter<Profile>();
   isSubmitting = false;
   destroyRef = inject(DestroyRef);
@@ -58,8 +58,8 @@ export class FollowButtonComponent {
             return EMPTY;
           }
 
-          if (!this.profile.following) {
-            return this.profileService.follow(this.profile.username);
+          if (!this.profile?.following) {
+            return this.profileService.follow(this.profile?.username!);
           } else {
             return this.profileService.unfollow(this.profile.username);
           }
