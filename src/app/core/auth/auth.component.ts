@@ -50,16 +50,18 @@ export default class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authType = this.route.snapshot.url.at(-1)!.path;
-    this.title = this.authType === "login" ? "Sign in" : "Sign up";
-    if (this.authType === "register") {
-      this.authForm.addControl(
-        "username",
-        new FormControl("", {
-          validators: [Validators.required],
-          nonNullable: true,
-        }),
-      );
+    if (this.route.snapshot.url.at(-1) != undefined) {
+      this.authType = this.route.snapshot.url.at(-1)!.path;
+      this.title = this.authType === "login" ? "Sign in" : "Sign up";
+      if (this.authType === "register") {
+        this.authForm.addControl(
+          "username",
+          new FormControl("", {
+            validators: [Validators.required],
+            nonNullable: true,
+          }),
+        );
+      }
     }
   }
 
