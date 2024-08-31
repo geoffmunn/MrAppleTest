@@ -31,7 +31,40 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ### Building the project
 
+If this is the first time you are installing the project, run `npm audit fix` to upgrade any packages with vulnerabilities.
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+### Azure CI/CD integration with VS Code
+
+#### Install Azure Static Web Apps extension
+
+If you don't already have the Azure Static Web Apps extension for Visual Studio Code extension, you can install it in Visual Studio Code.
+
+- Select View > Extensions.
+- In the Search Extensions in Marketplace, type Azure Static Web Apps.
+- Select Install for Azure Static Web Apps.
+
+#### Configuration steps
+
+- Press F1 (fn+F1 on MacOS) and enter `Create static web app` in the command box.
+- Select `Azure Static Web Apps: Create static web app`....
+- Select `Clone project from GitHub`
+- Paste your GitHub repo URL into the input box
+- Select your preferred location on your computer
+- Open this cloned repository when prompted
+
+In the Azure toolbox, select your subscription and right-click on ‘Static Web Apps’.
+
+Use these details:
+
+- **Name**: anything you want
+- **Region**: whatever you prefer
+- **Framework**: `Angular`
+- **Application code location**: `/`
+- **Build output location**: `dist/dist/angular-conduit/browser/browser`
+
+The Azure web app should build and become available.
 
 ## Functionality overview
 
