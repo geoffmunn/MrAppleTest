@@ -8,6 +8,9 @@
             <h4>{{ profile.username }}</h4>
             <p>{{ profile.bio }}</p>
             @if (!isUser) {
+              <app-email-subscribe-form
+                [profile]="profile"
+              ></app-email-subscribe-form>
               <app-follow-button
                 [profile]="profile"
                 (toggle)="onToggleFollowing($event)"
