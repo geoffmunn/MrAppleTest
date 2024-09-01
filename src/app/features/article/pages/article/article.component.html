@@ -24,6 +24,7 @@
             </span>
           } @else {
             <span>
+              <app-email-subscribe-form></app-email-subscribe-form>
               <app-follow-button
                 [profile]="article.author"
                 (toggle)="toggleFollowing($event)"
