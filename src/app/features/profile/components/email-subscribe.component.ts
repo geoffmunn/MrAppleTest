@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit, Input } from "@angular/core";
+import { EmailSubscribeService } from "../../article/services/email-subscribe.service";
 
 import {
   FormControl,
@@ -7,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { Profile } from "../models/profile.model";
 
 @Component({
   selector: "app-email-subscribe-form",
@@ -26,7 +28,7 @@ import {
     </button> -->
     <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
       <div class="form-group">
-        <label for="Email">Email</label>
+        <label for="Email">Subscribe for more updates from this author:</label>
         <input
           type="email"
           class="form-control"
@@ -39,7 +41,7 @@ import {
           >We'll never share your email with anyone else.</small
         >
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="fullname">Full Name</label>
         <input
           type="text"
@@ -48,13 +50,13 @@ import {
           placeholder="Full Name"
           formControlName="Fullname"
         />
-      </div>
+      </div> -->
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="comment">Comment</label>
         <textarea class="form-control" formControlName="Comment" name="Comment">
         </textarea>
-      </div>
+      </div> -->
       <button
         type="submit"
         class="btn btn-primary"
@@ -63,22 +65,26 @@ import {
         Submit
       </button>
     </form>
-    <p>Email subscription</p>
   `,
   imports: [ReactiveFormsModule],
   standalone: true,
 })
 export class EmailSubscribeComponent implements OnInit {
   FormData!: FormGroup;
+
+  @Input() profile: Profile | undefined;
+
+  private subscriptions: EmailSubscribeService = inject(EmailSubscribeService);
+
   //constructor(private builder: FormBuilder, private contact: ServicesService) { }
   constructor(private builder: FormBuilder) {}
 
   ngOnInit() {
     this.FormData = this.builder.group({
-      Fullname: new FormControl("", [Validators.required]),
+      //Fullname: new FormControl("", [Validators.required]),
       //Email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
       Email: new FormControl("", [Validators.email]),
-      Comment: new FormControl("", [Validators.required]),
+      //Comment: new FormControl("", [Validators.required]),
     });
   }
 
@@ -92,5 +98,10 @@ export class EmailSubscribeComponent implements OnInit {
     //       console.warn(error.responseText)
     //       console.log({ error })
     //     })
+    console.log("profile:", this.profile);
+    console.log(FormData["Email"]);
+    if (this.profile != undefined) {
+      this.subscriptions.subscribe_stub(FormData["Email"], this.profile);
+    }
   }
 }
