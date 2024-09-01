@@ -53,6 +53,7 @@ export class EmailSubscribeService {
         local_subscriptions = JSON.parse(subscriptions);
       }
     }
+
     return local_subscriptions;
   }
 
@@ -68,15 +69,25 @@ export class EmailSubscribeService {
   subscribe_stub(email_address: string, profile: Profile): boolean {
     let subscription_list = this.getAllSubscriptions();
 
-    console.log("subscription_list:", subscription_list);
-    subscription_list.push({ email_address: email_address, author: profile });
+    // Don't add this email address if it already exists
+    let exists: boolean = false;
+    for (var key in subscription_list) {
+      if (subscription_list[key].email_address == email_address) {
+        exists = true;
+        break;
+      }
+    }
 
-    this.local_storage.saveData(
-      "subscriptions",
-      JSON.stringify(subscription_list),
-    );
+    if (exists == false) {
+      subscription_list.push({ email_address: email_address, author: profile });
 
-    return true;
+      this.local_storage.saveData(
+        "subscriptions",
+        JSON.stringify(subscription_list),
+      );
+    }
+
+    return exists;
   }
 
   subscribe(email_address: string, profile: Profile): Observable<Subscription> {
