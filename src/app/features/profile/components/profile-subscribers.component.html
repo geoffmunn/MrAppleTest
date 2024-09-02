@@ -1,0 +1,23 @@
+@if (currentUser) {
+  <div class="article-page">
+    <div class="banner">
+      <div class="container">
+        <h1>{{ currentUser.username }}</h1>
+      </div>
+    </div>
+
+    <div class="container page">
+      <div class="row article-content">
+        <div class="col-md-12">
+          <ul class="subscriber-list">
+            @for (subscriber of subscribers; track subscriber) {
+              <li class="tag-default tag-pill tag-outline">
+                {{ subscriber }}
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}

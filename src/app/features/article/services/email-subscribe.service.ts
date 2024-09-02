@@ -60,6 +60,33 @@ export class EmailSubscribeService {
   }
 
   /**
+   * Return a list of subscriptions for a particular author
+   *
+   * @param author_name
+   *
+   * @returns array
+   */
+  public getSubscriptionsByAuthor(author_name: string): Subscription[] {
+    let local_subscriptions: Subscription[] = [];
+    let all_subscriptions: Subscription[] = [];
+
+    if (this.local_storage.getData("subscriptions")) {
+      let subscriptions = this.local_storage.getData("subscriptions");
+      if (subscriptions != null) {
+        all_subscriptions = JSON.parse(subscriptions);
+      }
+    }
+
+    for (var subscription in all_subscriptions) {
+      if (all_subscriptions[subscription].author.username == author_name) {
+        local_subscriptions.push(all_subscriptions[subscription]);
+      }
+    }
+
+    return local_subscriptions;
+  }
+
+  /**
    * A stub to save subscriptions to the local storage object.
    * This can be replaced with the 'subscribe' function when it is working
    *
@@ -163,21 +190,55 @@ export class EmailSubscribeService {
 
     return true;
   }
-  //   update(article: Partial<Article>): Observable<Article> {
-  //     return this.http
-  //       .put<{ article: Article }>(`/articles/${article.slug}`, {
-  //         article: article,
-  //       })
-  //       .pipe(map((data) => data.article));
-  //   }
 
-  //   favorite(slug: string): Observable<Article> {
-  //     return this.http
-  //       .post<{ article: Article }>(`/articles/${slug}/favorite`, {})
-  //       .pipe(map((data) => data.article));
-  //   }
+  /**
+   * This is how I would imagine the unsubscription service to actually work.
+   * Uses the same structure and feedback loop as other API calls.
+   *
+   * @param email_address
+   * @param profile
+   * @returns
+   */
+  unsubscribe(
+    email_address: string,
+    profile: Profile,
+  ): Observable<Subscription> {
+    return this.http
+      .post<{ subscription: Subscription }>("/unsubscribe/", {
+        email_address: email_address,
+        profile_username: profile.username,
+      })
+      .pipe(map((data: { subscription: any }) => data.subscription));
+  }
 
-  //   unfavorite(slug: string): Observable<void> {
-  //     return this.http.delete<void>(`/articles/${slug}/favorite`);
-  //   }
+  /**
+   * A stub to remove a subscription from the local storage object.
+   * This can be replaced with the 'unsubscribe' function when it is working
+   *
+   * @param email_address
+   * @param profile
+   *
+   * @returns boolean
+   */
+  unsubscribe_stub(email_address: string, author: string): Subscription[] {
+    let subscription_list = this.getAllSubscriptions();
+
+    let new_subscriptions: Subscription[] = [];
+
+    for (var key in subscription_list) {
+      if (
+        subscription_list[key].email_address != email_address ||
+        subscription_list[key].author.username != author
+      ) {
+        new_subscriptions.push(subscription_list[key]);
+      }
+    }
+
+    this.local_storage.saveData(
+      "subscriptions",
+      JSON.stringify(new_subscriptions),
+    );
+
+    return this.getSubscriptionsByAuthor(author);
+  }
 }

@@ -19,6 +19,11 @@ const routes: Routes = [
             loadComponent: () =>
               import("./components/profile-favorites.component"),
           },
+          {
+            path: "subscribers",
+            loadComponent: () =>
+              import("./components/profile-subscribers.component"),
+          },
         ],
       },
     ],
