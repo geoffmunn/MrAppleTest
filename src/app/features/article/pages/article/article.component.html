@@ -94,6 +94,9 @@
                 <span class="counter">({{ article.favoritesCount }})</span>
               </app-favorite-button>
             </span>
+            <app-email-subscribe-form
+              [profile]="article.author"
+            ></app-email-subscribe-form>
           }
         </app-article-meta>
       </div>
