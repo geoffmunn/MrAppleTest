@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ArticlePreviewComponent } from "./article-preview.component";
 
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
 
 describe("ArticlePreviewComponent", () => {
   let component: ArticlePreviewComponent;
@@ -11,12 +12,8 @@ describe("ArticlePreviewComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        ArticlePreviewComponent,
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
-      providers: [],
+      imports: [ArticlePreviewComponent, RouterModule.forRoot([])],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 

@@ -1,12 +1,12 @@
 import { TestBed } from "@angular/core/testing";
 
-import { ArticlesService } from "./articles.service";
+import { EmailSubscribeService } from "./email-subscribe.service";
 
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideHttpClient } from "@angular/common/http";
 
-describe("ArticlesService", () => {
-  let service: ArticlesService;
+describe("EmailSubscribeService", () => {
+  let service: EmailSubscribeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe("ArticlesService", () => {
       providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     });
-    service = TestBed.inject(ArticlesService);
+    service = TestBed.inject(EmailSubscribeService);
   });
 
   it("should be created", () => {

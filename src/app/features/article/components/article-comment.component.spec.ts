@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ArticleCommentComponent } from "./article-comment.component";
 
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
 
 describe("ArticleCommentComponent", () => {
   let component: ArticleCommentComponent;
@@ -11,12 +11,8 @@ describe("ArticleCommentComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        ArticleCommentComponent,
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
-      providers: [],
+      imports: [ArticleCommentComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 

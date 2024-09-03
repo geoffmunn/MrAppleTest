@@ -1,23 +1,22 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HeaderComponent } from "./header.component";
+import { SubscriberListComponent } from "./subscriber-list.component";
 
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideHttpClient } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
 
-describe("HeaderComponent", () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe("SubscriberListComponent", () => {
+  let component: SubscriberListComponent;
+  let fixture: ComponentFixture<SubscriberListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent, RouterModule.forRoot([])],
+      imports: [SubscriberListComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(SubscriberListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

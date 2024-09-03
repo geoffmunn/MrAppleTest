@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ArticleMetaComponent } from "./article-meta.component";
 
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
 
 describe("ArticleMetaComponent", () => {
   let component: ArticleMetaComponent;
@@ -11,12 +12,8 @@ describe("ArticleMetaComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        ArticleMetaComponent,
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
-      providers: [],
+      imports: [ArticleMetaComponent, RouterModule.forRoot([])],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 
