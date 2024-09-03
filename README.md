@@ -62,7 +62,7 @@ Use these details:
 - **Region**: whatever you prefer
 - **Framework**: `Angular`
 - **Application code location**: `/`
-- **Build output location**: `dist/dist/angular-conduit/browser/browser`
+- **Build output location**: `dist/angular-conduit/browser/browser`
 
 The Azure web app should build and become available.
 
