@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import AuthComponent from "./auth.component";
 
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
 
 describe("AuthComponent", () => {
   let component: AuthComponent;
@@ -11,8 +12,8 @@ describe("AuthComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthComponent, HttpClientTestingModule, RouterTestingModule],
-      providers: [],
+      imports: [AuthComponent, RouterModule.forRoot([])],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 

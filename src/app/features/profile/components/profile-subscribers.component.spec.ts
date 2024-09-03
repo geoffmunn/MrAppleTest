@@ -1,27 +1,27 @@
-// import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-// import ArticleComponent from "./article.component";
+import ProfileSubscribersComponent from "./profile-subscribers.component";
+import { provideHttpClient } from "@angular/common/http";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { RouterModule } from "@angular/router";
 
-// import { HttpClientTestingModule } from "@angular/common/http/testing";
-// import { RouterTestingModule } from "@angular/router/testing";
+describe("ProfileSubscribersComponent", () => {
+  let component: ProfileSubscribersComponent;
+  let fixture: ComponentFixture<ProfileSubscribersComponent>;
 
-// describe("ArticleComponent", () => {
-//   let component: ArticleComponent;
-//   let fixture: ComponentFixture<ArticleComponent>;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ProfileSubscribersComponent, RouterModule.forRoot([])],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+      declarations: [],
+    }).compileComponents();
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [ArticleComponent, HttpClientTestingModule, RouterTestingModule],
-//       providers: [],
-//       declarations: [],
-//     }).compileComponents();
+    fixture = TestBed.createComponent(ProfileSubscribersComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//     fixture = TestBed.createComponent(ArticleComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-
-//   it("should create", () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it("should create", () => {
+    expect(component).toBeTruthy();
+  });
+});

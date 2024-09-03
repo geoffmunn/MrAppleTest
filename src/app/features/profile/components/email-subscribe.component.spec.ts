@@ -1,23 +1,22 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HeaderComponent } from "./header.component";
+import { EmailSubscribeComponent } from "./email-subscribe.component";
 
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideHttpClient } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
 
-describe("HeaderComponent", () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe("EmailSubscribeComponent", () => {
+  let component: EmailSubscribeComponent;
+  let fixture: ComponentFixture<EmailSubscribeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent, RouterModule.forRoot([])],
+      imports: [EmailSubscribeComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(EmailSubscribeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
